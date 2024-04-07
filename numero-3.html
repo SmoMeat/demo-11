@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Python webapp
+        </title>
+    </head>
+    <body>
+        <table id="primeNumbersTable"></table>
+    </body>
+    <script>
+        function p(n) {
+            var x = Math.sqrt(n);
+            if(n==2){return 2;}
+            else if (n % 2===0){return 0;}
+            var i=3;
+            for(i=3; i < x; i+=2){
+                if(n%i===0){return 0;}
+            }
+        return n;
+        }
+        function getNPrimeNumbers(k) {
+            var i=1;
+            var primes =[];
+            while (primes.length < k) {
+                if (i == 2) { 
+                    primes.push(p(i)); 
+                }
+                if (i>2 && i%2!==0) {
+                    if (p(i)>1) {
+                        primes.push(p(i));
+                    }
+                }
+                i++;
+            }
+            return primes
+        }
+
+        const primeNumbers = getNPrimeNumbers(500)
+        let organisedPrimes = []
+        for (let i = 0; i < primeNumbers.length; i += 10) {
+            organisedPrimes.push(primeNumbers.slice(i, i+10))
+        }
+        console.log(organisedPrimes)
+        let table = document.getElementById('primeNumbersTable')
+
+        organisedPrimes.forEach(row => {
+            let tr = document.createElement('tr')
+
+            row.forEach(prime => {
+                let td = document.createElement('td')
+                td.innerText = prime
+                tr.appendChild(td)
+            })
+
+            table.appendChild(tr)
+        })
+
+    </script>
+</html>
